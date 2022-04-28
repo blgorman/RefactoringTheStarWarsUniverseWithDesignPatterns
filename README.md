@@ -4,8 +4,8 @@ This repo takes a look at a few of the most important design patterns in Object-
 
 The patterns discussed and demonstrated in this repository are:
 
-- The Strategy Pattern
 - The Singleton Pattern
+- The Strategy Pattern
 - The Factory Pattern
 - The Decorator Pattern
 - The Template Pattern
@@ -98,7 +98,38 @@ With all of that in mind, let's dive into some code.
 
 To complete this study, we're looking at a fictional Star Wars universe that could be used to generate roll-playing characters or as the base code in a more robust game.  
 
-We'll start by looking at the Strategy pattern, then move to the Singleton Pattern, followed by the Factory Pattern, then the Decorator Pattern, and we'll finish with the Template Pattern
+We'll start by looking at the Singleton pattern, then move to the Strategy Pattern, followed by the Factory Pattern, then the Decorator Pattern, and we'll finish with the Template Pattern
+
+## The Singleton Pattern
+
+In the example code that is used for this solution, even the bad universe has a Singleton class for the ConfigurationBuilder.
+
+It is important to note that this is not really necessary and since we're only building the solution once the gain here is minimal.  However, if the builder needed to be used in multiple places, it would be useful.
+
+That being said, there are a number of places where a new Random class is generated, all for the purposes of rolling for ability.  Sometimes it's for force skills, sometimes its for hit probability or damage value.
+
+It could be interesting to just create a new Roller class that allows for using a singleton Random class.  While this might also be a cannon to kill a mosquito, it's a good simple demonstration of how we can avoid "newing up" Random classes all over the place - and over and over again in code.
+
+Goals:
+
+- Eliminate multiple new Random() class instantiations
+- Be able to use the Roller throughout the solution to generate appropriate random numbers
+
+### Old code
+
+The old code looks something like this when used:
+
+```c#
+Random r = new Random(); //or new Random(seedValueInt)
+var nextRandom = r.Next(x, y); //or r.Next();
+```  
+
+The new code will reference the instance to get the next value
+
+```c#
+var roller = Roller.Instance;
+roller.Next(x, y); // or r.Next();
+```  
 
 ## The Strategy Pattern
 
@@ -124,12 +155,11 @@ When implementing the strategy pattern, assuming you have found a valid candidat
 - Create an interface for the interchangeable behavior
 - Implement concrete types for different implementations of the behavior
 - Use composition to consume code with the appropriate behavior injected at runtime
-- 
 ### Implementation
 
 To examine this pattern in the Star Wars Universe, consider code that has the following problems:  
 
-- Each class must implement  its own behavior for attack and defense 
+- Each class must implement its own behavior for attack and defense 
 - Some behavioral code in classes is exactly repeated in other character classes
 - A character cannot ever change their attack or defense behavior
 - The solution has to have knowledge of each character to leverage attack and defense behaviors

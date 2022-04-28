@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWarsUniverse_v1", "StarWarsUniverse_v1\StarWarsUniverse_v1.csproj", "{33B0B077-1C7B-4533-A599-920662BB22F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarWarsCharacterModels", "StarWarsCharacterModels\StarWarsCharacterModels.csproj", "{57EE45F5-5D44-4401-9E17-E76F091B5F37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{33B0B077-1C7B-4533-A599-920662BB22F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33B0B077-1C7B-4533-A599-920662BB22F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33B0B077-1C7B-4533-A599-920662BB22F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57EE45F5-5D44-4401-9E17-E76F091B5F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57EE45F5-5D44-4401-9E17-E76F091B5F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57EE45F5-5D44-4401-9E17-E76F091B5F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57EE45F5-5D44-4401-9E17-E76F091B5F37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
