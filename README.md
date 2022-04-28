@@ -166,7 +166,7 @@ To examine this pattern in the Star Wars Universe, consider code that has the fo
 
 After applying the strategy pattern, the code will have a number of improvements:
 
-- Elmination of class-specific attack and defense instances
+- Elimination of class-specific attack and defense instances
 - Can now add new behaviors as easily as adding new classes, and all characters can use them immediately
 - Modify existing behaviors in one place for the entire solution
 - Composition allows for characters to change their attack or defense strategy
@@ -183,7 +183,9 @@ Eliminate the problems with making a new subclass for each of your inheritance n
 
 - Light Saber 
 - Double-Bladed light Saber
-- Light Saber with Force bonus
+- Blaster
+- BlasterRifle
+- BlasterCannon
 
 ## The Singleton Pattern
 
@@ -208,3 +210,11 @@ Protect your algorithms - give additional options when appropriate.
 ### Implementations
 
 The roll algorithm with hooks to change a few things when necessary.
+
+
+
+Singleton => RollerClass
+Strategy => Attack and defense behaviors
+Factory => Character Classification factory
+Decorator => Weapons
+Template => Character Classifications
