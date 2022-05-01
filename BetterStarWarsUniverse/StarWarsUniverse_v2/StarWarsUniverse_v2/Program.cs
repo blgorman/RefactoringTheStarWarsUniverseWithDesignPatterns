@@ -46,13 +46,13 @@ namespace StarWarsUniverse_v2
                 switch (charactersChoice)
                 {
                     case 1:
-                        newCharacter = new JediKnight(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new JediKnight(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice);
                         break;
                     case 2:
                         newCharacter = new Scavenger(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
                         break;
                     case 3:
-                        newCharacter = new SithLord(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new SithLord(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice);
                         break;
                     case 4:
                         newCharacter = new Scoundrel(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
@@ -139,8 +139,8 @@ namespace StarWarsUniverse_v2
         {
             new Scoundrel("Han Solo", 42, 6.04, 225, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, false, false),
             new Scoundrel("Chewbacca", 152, 8.31, 423, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Wookie, (int)WeaponChoices.Bowcaster, false, false),
-            new JediKnight("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, true, true),
-            new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, true, true)
+            new JediKnight("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber),
+            new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber)
         };
     }
 }
