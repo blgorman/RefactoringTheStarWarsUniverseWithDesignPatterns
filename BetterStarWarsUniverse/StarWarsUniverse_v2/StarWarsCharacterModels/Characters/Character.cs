@@ -24,13 +24,16 @@ namespace StarWarsCharacterModels.Characters
         //what race of character is this
         public ICharacterSpecies Species { get; set; }
 
-        public Character(string name, int age, double height, double weight, int classificationChoice, int speciesChoice, int weaponChoice, bool canHaveTheForce, bool mustHaveTheForce)
+        protected readonly Random _random;
+
+        public Character(string name, int age, double height, double weight, int classificationChoice, int speciesChoice, int weaponChoice, bool canHaveTheForce, bool mustHaveTheForce, Random random)
         {
             Name = name;
             Age = age;
             Height = height;
             Weight = weight;
-            Species = new Species((KnownSpeciesType)speciesChoice);
+            _random = random;
+            Species = new Species((KnownSpeciesType)speciesChoice, _random);
             Weapon = ConstructWeapon(weaponChoice);
             HasForcePower = false;
             if (canHaveTheForce)
