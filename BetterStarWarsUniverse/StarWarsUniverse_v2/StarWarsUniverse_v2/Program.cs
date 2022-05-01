@@ -4,11 +4,12 @@ using StarWarsCharacterModels.Characters;
 using StarWarsCharacterModels.CharacterSpecies;
 using StarWarsCharacterModels.Weapons;
 
-namespace StarWarsUniverse_v1
+namespace StarWarsUniverse_v2
 {
     public class Program
     {
         private static IConfigurationRoot _configuration;
+
 
         public static void Main(string[] args)
         {
@@ -23,6 +24,7 @@ namespace StarWarsUniverse_v1
                     AllCharacters.Add(character);
                 }
             }
+            
 
             //build characters
             shouldContinue = ConsoleHelpers.GetUserInputChoice("Would you like to generate additional characters [y/n]?");

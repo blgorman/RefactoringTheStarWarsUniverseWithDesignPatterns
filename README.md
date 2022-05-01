@@ -131,6 +131,16 @@ var roller = Roller.Instance;
 roller.Next(x, y); // or r.Next();
 ```  
 
+Yes, this is probably a bit of overkill for this simple scenario, but it illustrates how to build out the singleton.  Additionally, it's important to note that a number of systems already implement the singleton pattern for you.  For example, in an MVC web application, you create a new instance of your database context and any service files in the Program (or Startup) file.  Once you do this, you can inject the singleton instance into your controllers.
+
+To implement, the main point is to keep from having to restart the class over and over again.
+
+Create a new static class to house the instance of the Roller, and then implement the code as follows:
+
+```c#
+
+```  
+
 ## The Strategy Pattern
 
 In your solutions, when you find that there are similar problems with various solutions, this might be a good time to apply the strategy pattern.

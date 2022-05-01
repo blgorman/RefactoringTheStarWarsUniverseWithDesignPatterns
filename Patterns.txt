@@ -1,0 +1,9 @@
+Singleton => RollerClass
+Strategy => Attack and defense behaviors
+Factory => Character Classification factory
+Decorator => Weapons
+Template => Character Classification PerformAction Algorithm
+
+Final Thoughts
+Adapter => Get this on your radar
+Iterator => You will use this one implicitly

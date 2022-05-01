@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarWarsUniverse_v1
+namespace StarWarsUniverse_v2
 {
     public static class ConsoleHelpers
     {
@@ -43,7 +43,7 @@ namespace StarWarsUniverse_v1
                     inputString = GetUserInput(message);
                 }
             }
-            
+
             return inputString;
         }
 
