@@ -231,8 +231,15 @@ After applying the strategy pattern, the code will have a number of improvements
 - Composition allows for characters to change their attack or defense strategy
 
 For example: 
-- Defend with blaster becomes defend with light saber.
-- Attack with blaster becomes attack with blaster cannon.
+- Default Attack and Defend Behaviors
+- Attack with Force or Attack with Weapon or both
+- Defend with Force or Defend with Weapon or retreat
+
+Benefits: 
+
+Use composition to change default behaviors
+Can use one attack in round 1, then another attack in round 2
+The same code can be used for any character to perform their attack and defend
 
 ## The Decorator Pattern
 
@@ -245,6 +252,19 @@ Eliminate the problems with making a new subclass for each of your inheritance n
 - Blaster
 - BlasterRifle
 - BlasterCannon
+
+Currently, every new weapon has to have its own class.  What if, however, each weapon could just be a more advanced version of the base weapon?
+
+For example, a blaster cannon is just like a blaster rifle, only with a different name and more power, while that is just the blaster with a different name and power.
+
+Blaster -> 5 hp
+BlasterRifle -> 10 hp (2 blasters)
+BlasterCannon -> 15 hp (3 blasters)
+
+Or light sabers and double-bladed light sabers:
+
+LightSaber -> 15 hp
+DoubleLightSaber -> 30hp
 
 ## The Singleton Pattern
 

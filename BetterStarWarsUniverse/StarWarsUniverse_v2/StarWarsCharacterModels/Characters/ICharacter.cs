@@ -1,4 +1,5 @@
-﻿using StarWarsCharacterModels.CharacterClassifications;
+﻿using StarWarsCharacterModels.Behaviors;
+using StarWarsCharacterModels.CharacterClassifications;
 using StarWarsCharacterModels.CharacterSpecies;
 using StarWarsCharacterModels.Weapons;
 
@@ -13,5 +14,9 @@ namespace StarWarsCharacterModels.Characters
         IWeapon Weapon { get; set; }
         ICharacterClassification Classification { get; set; }
         ICharacterSpecies Species { get; set; }
+
+        IAttackBehavior AttackBehavior { get; set; }
+        IDefendBehavior DefendBehavior { get; set; }
+
     }
 }
