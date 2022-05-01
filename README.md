@@ -213,7 +213,8 @@ When implementing the strategy pattern, assuming you have found a valid candidat
 
 - Create an interface for the interchangeable behavior
 - Implement concrete types for different implementations of the behavior
-- Use composition to consume code with the appropriate behavior injected at runtime
+- Use composition to consume code with the appropriate behavior injected at runtime  
+
 ### Implementation
 
 To examine this pattern in the Star Wars Universe, consider code that has the following problems:  
@@ -241,9 +242,17 @@ Use composition to change default behaviors
 Can use one attack in round 1, then another attack in round 2
 The same code can be used for any character to perform their attack and defend
 
+### Code Samples
+
+You will want to review the codebase for this.  Pay attention to the fact that all attack/defend code is removed from all classes.
+
+Also note, you can change behaviors on the fly by setting new behaviors.
+
+Review the Behaviors folder, and review how the AnyCharacter is composed as well as how the default characters can be modified.
+
 ## The Decorator Pattern
 
-Eliminate the problems with making a new subclass for each of your inheritance needs.
+Eliminate the problems with making a new subclass for each of your inheritance needs.  
 
 ### Implementations
 
@@ -266,13 +275,30 @@ Or light sabers and double-bladed light sabers:
 LightSaber -> 15 hp
 DoubleLightSaber -> 30hp
 
-## The Singleton Pattern
+What about if you want to forge a new weapon like a BowCasterRifle?
 
-Why instantiate a new roller class every time you need it?
+With the decorator pattern, you can do this by creating your base weapons and then you can just go crazy when using them.
 
-### Implementations
+### Implementation
 
-A singleton static character roller class.
+Change the base weapons and allow a constructor that decorates by using a base weapon
+
+You will want to look at the changes in the Weapons classes as they can now be composed to become more powerful.
+
+For example, you can create
+
+- Blaster Cannon
+- Blaster Rifle
+- Blaster Blaster Rifle Cannon
+- Bowcaster
+- Bowcaster Rifle
+- Bowcaster Bowcaster Rifle Cannon
+- Light Saber
+- Light Saber Light Saber
+- Light Saber Cannon
+
+As you can see the possibilities are endless but some would be ridiculous in this universe.  That being said, you no longer have to create a class for every single new weapon.
+
 
 ## The Factory Pattern
 

@@ -139,9 +139,9 @@ namespace StarWarsCharacterModels.Characters
                 case 1:
                     return new Blaster();
                 case 2:
-                    return new BlasterRifle();
+                    return new Rifle(new Blaster());
                 case 3:
-                    return new BlasterCannon();
+                    return new Cannon(new Blaster());
                 case 4:
                     return new Bowcaster();
                 case 5:
