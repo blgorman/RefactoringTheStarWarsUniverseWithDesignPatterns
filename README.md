@@ -184,6 +184,12 @@ public sealed class RandomRoller
 
 After creating the singleton, replace all calls to a new Random() with the roller instance and utilize that to prove that the random object is only created once per solution run.
 
+Code changes can be seen by comparing commit a1cf9e1 to 6e3ad09.
+
+```bash
+git diff 6e3ad09 a1cf9e1
+```  
+
 ## The Strategy Pattern
 
 In your solutions, when you find that there are similar problems with various solutions, this might be a good time to apply the strategy pattern.
