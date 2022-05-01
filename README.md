@@ -138,8 +138,51 @@ To implement, the main point is to keep from having to restart the class over an
 Create a new static class to house the instance of the Roller, and then implement the code as follows:
 
 ```c#
+public sealed class RandomRoller
+{
+    private static RandomRoller _roller = null;
+    private static readonly object instanceLock = new object();
+    private static Random _random;
 
+    //do not expose a public constructor
+    private RandomRoller()
+    {
+        _random = new Random();
+    }
+
+    //instead, expose a static instance
+    public static RandomRoller Instance
+    {
+        get
+        {
+            lock (instanceLock)
+            {
+                //if the roller is null, create it new
+                if (_roller == null)
+                {
+                    _roller = new RandomRoller();
+                }
+                //return the roller 
+                return _roller;
+            }
+        }
+    }
+
+    //utilize this method to get access to the internal
+    //random object that is now singleton
+    public static Random Roller
+    {
+        get
+        {
+            if (_roller == null) { var x = Instance; }
+            
+            return _random;
+        }
+    }
+}
 ```  
+
+After creating the singleton, replace all calls to a new Random() with the roller instance and utilize that to prove that the random object is only created once per solution run.
 
 ## The Strategy Pattern
 
