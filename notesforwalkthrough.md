@@ -33,3 +33,15 @@ In the current system, they cannot change weapons or behave differently in scena
 8) Show the new code [Han and Chewy fail to attack]
 9) Add the interchangability [Han and Chewy Attack, han still runs away, chewy fails to use the force, Emporer runs away instead of using force, Jedi changes to multi-attack, droid tries to use the force on attack and fails].
 
+## Decorator Pattern
+
+Refactor the code in the Weapons section
+
+Use composition to build new weapons in code on the fly
+
+1) Show the weapons refactoring
+2) Show the ability to decorate
+3) Decorate the weapons for Chewy, the trooper, and Darth Maul
+
+## Factory Pattern
+
