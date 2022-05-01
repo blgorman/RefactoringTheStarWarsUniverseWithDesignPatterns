@@ -2,6 +2,7 @@
 using StarWarsCharacterModels.CharacterClassifications;
 using StarWarsCharacterModels.Characters;
 using StarWarsCharacterModels.CharacterSpecies;
+using StarWarsCharacterModels.Roller;
 using StarWarsCharacterModels.Weapons;
 
 namespace StarWarsUniverse_v2
@@ -46,28 +47,28 @@ namespace StarWarsUniverse_v2
                 switch (charactersChoice)
                 {
                     case 1:
-                        newCharacter = new JediKnight(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new JediKnight(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                     case 2:
-                        newCharacter = new Scavenger(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new Scavenger(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
                         break;
                     case 3:
-                        newCharacter = new SithLord(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new SithLord(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                     case 4:
-                        newCharacter = new Scoundrel(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new Scoundrel(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
                         break;
                     case 5:
-                        newCharacter = new StormTrooper(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new StormTrooper(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
                         break;
                     case 6:
-                        newCharacter = new Politician(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new Politician(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
                         break;
                     case 7:
-                        newCharacter = new MobBoss(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new MobBoss(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
                         break;
                     default:
-                        newCharacter = new StormTrooper(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false);
+                        newCharacter = new StormTrooper(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
                         break;
                 }
                 AllCharacters.Add(newCharacter);
@@ -137,10 +138,10 @@ namespace StarWarsUniverse_v2
 
         private static List<ICharacter> MainCharacters() => new List<ICharacter>
         {
-            new Scoundrel("Han Solo", 42, 6.04, 225, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, false, false),
-            new Scoundrel("Chewbacca", 152, 8.31, 423, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Wookie, (int)WeaponChoices.Bowcaster, false, false),
-            new JediKnight("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, true, true),
-            new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, true, true)
+            new Scoundrel("Han Solo", 42, 6.04, 225, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, false, false, RandomRoller.Roller),
+            new Scoundrel("Chewbacca", 152, 8.31, 423, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Wookie, (int)WeaponChoices.Bowcaster, false, false, RandomRoller.Roller),
+            new JediKnight("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
+            new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller)
         };
     }
 }
