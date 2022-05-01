@@ -91,9 +91,14 @@ namespace StarWarsUniverse_v2
             var chewy = AllCharacters.FirstOrDefault(x => x.Name == "Chewbacca");
             if (chewy is not null)
             {
+                //decorator: Chewy gets a bowcaster cannon, storm trooper gets a blaster cannon
+                var bowcastercannon = new Cannon(new Bowcaster());
+                chewy.Weapon = bowcastercannon; 
+
                 chewy.AttackBehavior = new AttackWithWeapon();
                 chewy.DefendBehavior = new DefendWithForce(); //fails - no ability
             }
+
             //palpatine chickens out
             var emporer = AllCharacters.FirstOrDefault(x => x.Name == "Emporer Palpatine");
             if (emporer is not null)
@@ -116,10 +121,26 @@ namespace StarWarsUniverse_v2
                 c3p0.AttackBehavior = new AttackWithForce();
             }
 
+            //decorator trooper gets blaster cannon
+            var trooper = AllCharacters.FirstOrDefault(x => x.Name == "Finn");
+            if (trooper != null)
+            {
+                trooper.Weapon = new Cannon(new Blaster());
+            }
+
+            //decorator Maul gets double ls
+            var maul = AllCharacters.FirstOrDefault(x => x.Name == "Darth Maul");
+            if (maul != null)
+            {
+                maul.Weapon = new Lightsaber(new Lightsaber());
+            }
+
             foreach (var c in AllCharacters)
             {
                 Console.WriteLine(c);
             }
+
+            
         }
 
         private static void BuildOptions()
@@ -180,6 +201,9 @@ namespace StarWarsUniverse_v2
             new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
             new AnyCharacter("Princess Leia", 29, 5.4, 120, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, true, true, RandomRoller.Roller, new AttackWithWeapon(), new DefendWithWeapon()),
             new AnyCharacter("C3P0", 92, 5.9, 320, (int)ClassificationType.Droid, (int)KnownSpeciesType.Droid, (int)WeaponChoices.Staff, false, false, RandomRoller.Roller, new AttackNoWeapon(), new DefendRetreat()),
+            new AnyCharacter("Finn", 27, 6.0, 190, (int)ClassificationType.Trooper, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, true, false, RandomRoller.Roller, new AttackWithWeapon(), new DefendWithWeapon()),
+            new AnyCharacter("Darth Maul", 27, 6.4, 252, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, true, true, RandomRoller.Roller, new AttackWithForceAndWeapon(), new DefendWithWeapon())
+
         };
     }
 }

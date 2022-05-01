@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace StarWarsCharacterModels.Weapons
 {
-    public class Lightsaber : Weapon
+    public class Cannon : Weapon
     {
-        public Lightsaber() : base() { }
-        public Lightsaber(IWeapon w) : base(w)
+        public Cannon(IWeapon w) : base(w)
         {
         }
 
@@ -17,22 +16,22 @@ namespace StarWarsCharacterModels.Weapons
         {
             if (_weapon is null)
             {
-                return "Light Saber";
+                return "Cannon";
             }
-            else
+            else 
             {
-                return $"{_weapon.Description()} Light Saber";
+                return $"{_weapon.Description()} Cannon";
             }
         }
 
         public override double baseDamage()
         {
-            var baseAccumlator = 0.0;
-            if (_weapon is not null)
+            var baseAccumulator = 0.0;
+            if (_weapon != null)
             {
-                baseAccumlator = _weapon.baseDamage();
+                baseAccumulator = _weapon.baseDamage();
             }
-            return 15.3 + baseAccumlator;
+            return 10 + baseAccumulator;
         }
 
         public override double hitProbability()
@@ -42,7 +41,7 @@ namespace StarWarsCharacterModels.Weapons
             {
                 probAccumulator = _weapon.hitProbability();
             }
-            return .93 + (.1 * probAccumulator);
+            return .7 + (.1 * probAccumulator);
         }
 
         public override string ToString()

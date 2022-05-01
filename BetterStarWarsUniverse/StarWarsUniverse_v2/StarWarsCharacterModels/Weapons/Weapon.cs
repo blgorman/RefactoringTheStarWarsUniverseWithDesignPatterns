@@ -11,6 +11,17 @@
 
     public abstract class Weapon : IWeapon
     {
+        protected IWeapon _weapon;
+
+        public Weapon()
+        { 
+        }
+
+        public Weapon(IWeapon w)
+        { 
+            _weapon = w;
+        }
+
         public bool successfulWield()
         {
             Random rnd = new Random();

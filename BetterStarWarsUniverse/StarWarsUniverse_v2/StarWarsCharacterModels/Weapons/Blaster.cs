@@ -8,19 +8,42 @@ namespace StarWarsCharacterModels.Weapons
 {
     public class Blaster : Weapon
     {
+        public Blaster() : base() { } 
+        public Blaster(IWeapon w) : base(w)
+        {
+
+        }
+
         public override string Description()
         {
-            return "Blaster";
+            if (_weapon is null)
+            {
+                return "Blaster";
+            }
+            else
+            {
+                return $"{_weapon.Description()} Blaster";
+            }
         }
 
         public override double baseDamage()
         {
-            return 5.0;
+            var baseAccumulator = 0.0;
+            if (_weapon is not null)
+            {
+                baseAccumulator = _weapon.baseDamage();
+            }
+            return 5.0 + baseAccumulator;
         }
 
         public override double hitProbability()
         {
-            return .78;
+            var probAccumulator = 0.0;
+            if (_weapon is not null)
+            {
+                probAccumulator = _weapon.hitProbability();
+            }
+            return .50 + (.1 * probAccumulator);
         }
 
         public override string ToString()
