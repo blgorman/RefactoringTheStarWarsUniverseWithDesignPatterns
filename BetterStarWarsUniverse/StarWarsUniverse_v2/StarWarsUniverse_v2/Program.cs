@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using StarWarsCharacterModels.Behaviors;
 using StarWarsCharacterModels.CharacterClassifications;
 using StarWarsCharacterModels.Characters;
 using StarWarsCharacterModels.CharacterSpecies;
@@ -25,7 +26,6 @@ namespace StarWarsUniverse_v2
                     AllCharacters.Add(character);
                 }
             }
-            
 
             //build characters
             shouldContinue = ConsoleHelpers.GetUserInputChoice("Would you like to generate additional characters [y/n]?");
@@ -78,6 +78,42 @@ namespace StarWarsUniverse_v2
                 {
                     shouldContinue = false;
                 }
+            }
+
+            //Strategy - add ability to override default no attack behavior
+            //han and chewy get new behaviors!
+            var han = AllCharacters.FirstOrDefault(x => x.Name == "Han Solo");
+            if (han is not null)
+            {
+                han.AttackBehavior = new AttackWithWeapon();
+                //default defend is retreat...
+            }
+            var chewy = AllCharacters.FirstOrDefault(x => x.Name == "Chewbacca");
+            if (chewy is not null)
+            {
+                chewy.AttackBehavior = new AttackWithWeapon();
+                chewy.DefendBehavior = new DefendWithForce(); //fails - no ability
+            }
+            //palpatine chickens out
+            var emporer = AllCharacters.FirstOrDefault(x => x.Name == "Emporer Palpatine");
+            if (emporer is not null)
+            {
+                emporer.AttackBehavior = new AttackWithForceAndWeapon();
+                emporer.DefendBehavior = new DefendRetreat();
+            }
+
+            //luke uses the force and a weapon
+            var luke = AllCharacters.FirstOrDefault(x => x.Name == "Luke Skywalker");
+            if (luke is not null)
+            {
+                luke.AttackBehavior = new AttackWithForceAndWeapon();
+            }
+
+            //C3P0 tries to use the force
+            var c3p0 = AllCharacters.FirstOrDefault(x => x.Name == "C3P0");
+            if (c3p0 is not null)
+            {
+                c3p0.AttackBehavior = new AttackWithForce();
             }
 
             foreach (var c in AllCharacters)
@@ -141,7 +177,9 @@ namespace StarWarsUniverse_v2
             new Scoundrel("Han Solo", 42, 6.04, 225, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, false, false, RandomRoller.Roller),
             new Scoundrel("Chewbacca", 152, 8.31, 423, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Wookie, (int)WeaponChoices.Bowcaster, false, false, RandomRoller.Roller),
             new JediKnight("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
-            new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller)
+            new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
+            new AnyCharacter("Princess Leia", 29, 5.4, 120, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, true, true, RandomRoller.Roller, new AttackWithWeapon(), new DefendWithWeapon()),
+            new AnyCharacter("C3P0", 92, 5.9, 320, (int)ClassificationType.Droid, (int)KnownSpeciesType.Droid, (int)WeaponChoices.Staff, false, false, RandomRoller.Roller, new AttackNoWeapon(), new DefendRetreat()),
         };
     }
 }

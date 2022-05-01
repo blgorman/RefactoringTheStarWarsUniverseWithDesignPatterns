@@ -1,4 +1,5 @@
-﻿using StarWarsCharacterModels.CharacterClassifications;
+﻿using StarWarsCharacterModels.Behaviors;
+using StarWarsCharacterModels.CharacterClassifications;
 using StarWarsCharacterModels.CharacterSpecies;
 using StarWarsCharacterModels.Weapons;
 
@@ -25,6 +26,10 @@ namespace StarWarsCharacterModels.Characters
         public ICharacterSpecies Species { get; set; }
 
         protected readonly Random _random;
+
+        //behaviors
+        public IAttackBehavior AttackBehavior { get; set; }
+        public IDefendBehavior DefendBehavior { get; set; }
 
         public Character(string name, int age, double height, double weight, int classificationChoice, int speciesChoice, int weaponChoice, bool canHaveTheForce, bool mustHaveTheForce, Random random)
         {
@@ -56,8 +61,47 @@ namespace StarWarsCharacterModels.Characters
                     $"Defends {Defend()}\n";
         }
 
-        public abstract string Attack();
-        public abstract string Defend();
+        public void ChangeAttackStrategy(IAttackBehavior attack)
+        {
+            AttackBehavior = attack;
+        }
+        public void ChangeDefendStrategy(IDefendBehavior defense)
+        { 
+            DefendBehavior = defense;
+        }
+
+        public virtual string Attack()
+        {
+            if (AttackBehavior is null)
+            {
+                if (HasForcePower)
+                {
+                    AttackBehavior = new AttackWithForce();
+                }
+                else
+                {
+                    AttackBehavior = new AttackNoWeapon();
+                }
+            }
+                
+            return AttackBehavior.Attack(HasForcePower, Weapon);
+        }
+
+        public virtual string Defend()
+        {
+            if (DefendBehavior is null)
+            {
+                if (HasForcePower)
+                {
+                    DefendBehavior = new DefendWithForce();
+                }
+                else
+                {
+                    DefendBehavior = new DefendRetreat();
+                }
+            }
+            return DefendBehavior.Defend(HasForcePower, Weapon);
+        }
 
         private void SetClass(ClassificationType c)
         {
