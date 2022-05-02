@@ -24,6 +24,11 @@ namespace StarWarsCharacterModels.CharacterClassifications
             return $"Starting: {_nextAction}";
         }
 
+        public override string PerformChallengeAction()
+        {
+            return "Performing Jedi Mind Trick: 'These are not the droids you are looking for!'";
+        }
+
         public override string PerformNextAction()
         {
             Actions.RemoveAt(0);

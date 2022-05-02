@@ -1,4 +1,6 @@
-﻿namespace StarWarsCharacterModels.CharacterClassifications
+﻿using System.Text;
+
+namespace StarWarsCharacterModels.CharacterClassifications
 {
     public enum ClassificationType
     {
@@ -15,20 +17,27 @@
         , Scavenger = 11
     }
 
-    public abstract class CharacterClassification : ICharacterClassification
+    public abstract class CharacterClassification : CharacterClassificationAlgorithm
     {
         public ClassificationType ClassificationType { get; set; }
 
-        public virtual string PerformAction()
+        public sealed override string PerformAction()
         {
-            return $"{GetNextAction()}{System.Environment.NewLine}" +
-                    $"{PerformNextAction()}{System.Environment.NewLine}" +
-                    $"{ReportResults()}{System.Environment.NewLine}";
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(GetNextAction());
+            sb.AppendLine(PerformNextAction());
+            if (ChallengeRequested)
+            {
+                sb.AppendLine(PerformChallengeAction());
+            }
+            sb.AppendLine(ReportResults());
+            return sb.ToString();
         }
 
         public abstract string GetNextAction();
         public abstract string PerformNextAction();
         public abstract string ReportResults();
+        public abstract string PerformChallengeAction();
 
         public List<string> Actions = new List<string>();
     }

@@ -18,6 +18,11 @@
             return $"Starting: {_nextAction}";
         }
 
+        public override string PerformChallengeAction()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string PerformNextAction()
         {
             Actions.RemoveAt(0);

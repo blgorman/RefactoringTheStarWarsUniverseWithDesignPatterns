@@ -62,3 +62,45 @@ As such, we removed "Scoundrel" as that doesn't make sense any more.
 We also added all the classifications that should have been there from the start so we can compose objects correctly.
 
 Most objects can be made from one of the factories.  To support the legacy code we allowed keeping the type but still used the factory to generate the classification.  This might also be important if there are other things going on in the character creation class.
+
+## Template pattern
+
+Implemented a lock down on the algorithm for the Perform Action template
+
+Gave a hook to ensure that the users can easily opt in to presenting a challenge during an action
+
+Sealed the method so it can't be overridden by implementations
+
+Added a property to make the hook possible:
+
+```cs
+public abstract class CharacterClassificationAlgorithm : ICharacterClassification
+{
+    public bool ChallengeRequested { get; set; }
+
+    public virtual string PerformAction()
+    {
+        throw new NotImplementedException();
+    }
+}
+```  
+
+Implemented:
+
+```cs  
+public override string PerformChallengeAction()
+{
+    return "Performing Jedi Mind Trick: 'These are not the droids you are looking for!'";
+}
+
+public override string PerformNextAction()
+{
+    Actions.RemoveAt(0);
+    return $"Performing: {_nextAction}";
+}
+```  
+
+With this code in place, the solution guarantees execution of the base algorithm with optional hook to execute an additional method in the algorithm.
+
+The method is sealed so it cannot be changed or overridden to break the algorithm.
+

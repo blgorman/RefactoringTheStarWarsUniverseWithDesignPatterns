@@ -2,6 +2,7 @@
 {
     public interface ICharacterClassification
     {
-        public string PerformAction();
+        bool ChallengeRequested { get; set; }
+        string PerformAction();
     }
 }
