@@ -8,6 +8,11 @@
         , Smuggler = 4
         , Trooper = 5
         , Generic = 6
+        , Jedi = 7
+        , Sith = 8
+        , MobBoss = 9
+        , Politician = 10
+        , Scavenger = 11
     }
 
     public abstract class CharacterClassification : ICharacterClassification

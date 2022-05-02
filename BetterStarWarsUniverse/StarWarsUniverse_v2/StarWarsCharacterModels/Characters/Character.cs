@@ -103,33 +103,7 @@ namespace StarWarsCharacterModels.Characters
             return DefendBehavior.Defend(HasForcePower, Weapon);
         }
 
-        private void SetClass(ClassificationType c)
-        {
-            switch (c)
-            {
-                case ClassificationType.BountyHunter:
-                    Classification = new BountyHunter();
-                    break;
-                case ClassificationType.Droid:
-                    Classification = new Droid();
-                    break;
-                case ClassificationType.Raider:
-                    Classification = new Raider();
-                    break;
-                case ClassificationType.Smuggler:
-                    Classification = new Smuggler();
-                    break;
-                case ClassificationType.Trooper:
-                    Classification = new Trooper();
-                    break;
-                case ClassificationType.Generic:
-                    Classification = new GenericCharacter();
-                    break;
-                default:
-                    Classification = new GenericCharacter();
-                    break;
-            }
-        }
+        public abstract void SetClass(ClassificationType c);
 
         private IWeapon ConstructWeapon(int weaponChoice)
         {

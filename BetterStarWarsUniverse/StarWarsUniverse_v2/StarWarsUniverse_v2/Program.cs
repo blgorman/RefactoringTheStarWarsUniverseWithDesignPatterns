@@ -47,28 +47,25 @@ namespace StarWarsUniverse_v2
                 switch (charactersChoice)
                 {
                     case 1:
-                        newCharacter = new JediKnight(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, RandomRoller.Roller);
+                        newCharacter = new JediKnight(name, age, height, weight, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                     case 2:
-                        newCharacter = new Scavenger(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
+                        newCharacter = new Scavenger(name, age, height, weight, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                     case 3:
-                        newCharacter = new SithLord(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, RandomRoller.Roller);
-                        break;
-                    case 4:
-                        newCharacter = new Scoundrel(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
+                        newCharacter = new SithLord(name, age, height, weight, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                     case 5:
-                        newCharacter = new StormTrooper(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
+                        newCharacter = new StormTrooper(name, age, height, weight, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                     case 6:
-                        newCharacter = new Politician(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
+                        newCharacter = new Politician(name, age, height, weight, speciesChoice, weaponChoice,  RandomRoller.Roller);
                         break;
                     case 7:
-                        newCharacter = new MobBoss(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
+                        newCharacter = new MobBoss(name, age, height, weight, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                     default:
-                        newCharacter = new StormTrooper(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, RandomRoller.Roller);
+                        newCharacter = new StormTrooper(name, age, height, weight, speciesChoice, weaponChoice, RandomRoller.Roller);
                         break;
                 }
                 AllCharacters.Add(newCharacter);
@@ -163,7 +160,6 @@ namespace StarWarsUniverse_v2
             {1, "JediKnight" },
             {2, "Scavenger" },
             {3, "SithLord" },
-            {4, "Scoundrel" },
             {5, "StormTrooper" },
             {6, "Politician" },
             {7, "MobBoss" }
@@ -195,15 +191,14 @@ namespace StarWarsUniverse_v2
 
         private static List<ICharacter> MainCharacters() => new List<ICharacter>
         {
-            new Scoundrel("Han Solo", 42, 6.04, 225, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, false, false, RandomRoller.Roller),
-            new Scoundrel("Chewbacca", 152, 8.31, 423, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Wookie, (int)WeaponChoices.Bowcaster, false, false, RandomRoller.Roller),
-            new JediKnight("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
-            new SithLord("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
-            new AnyCharacter("Princess Leia", 29, 5.4, 120, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, true, true, RandomRoller.Roller, new AttackWithWeapon(), new DefendWithWeapon()),
-            new AnyCharacter("C3P0", 92, 5.9, 320, (int)ClassificationType.Droid, (int)KnownSpeciesType.Droid, (int)WeaponChoices.Staff, false, false, RandomRoller.Roller, new AttackNoWeapon(), new DefendRetreat()),
-            new AnyCharacter("Finn", 27, 6.0, 190, (int)ClassificationType.Trooper, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, true, false, RandomRoller.Roller, new AttackWithWeapon(), new DefendWithWeapon()),
-            new AnyCharacter("Darth Maul", 27, 6.4, 252, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, true, true, RandomRoller.Roller, new AttackWithForceAndWeapon(), new DefendWithWeapon())
-
+            new NoForceAbilityCharacter("Han Solo", 42, 6.04, 225, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, RandomRoller.Roller),
+            new NoForceAbilityCharacter("Chewbacca", 152, 8.31, 423, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Wookie, (int)WeaponChoices.Bowcaster, RandomRoller.Roller),
+            new ForceAbledCharacter("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Jedi, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
+            new ForceAbledCharacter("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Sith, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller),
+            new ForceAbledCharacter("Princess Leia", 29, 5.4, 120, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, RandomRoller.Roller, new AttackWithWeapon(), new DefendWithWeapon()),
+            new AnyDroid("C-3PO", 92, 5.9, 320, (int)KnownSpeciesType.Droid, (int)WeaponChoices.Staff, RandomRoller.Roller, new AttackNoWeapon(), new DefendRetreat()),
+            new AnyCharacter("Finn", 27, 6.0, 190, (int)ClassificationType.Trooper, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaster, RandomRoller.Roller, new AttackWithWeapon(), new DefendWithWeapon()),
+            new ForceAbledCharacter("Darth Maul", 27, 6.4, 252, (int)ClassificationType.Sith, (int)KnownSpeciesType.Human, (int)WeaponChoices.LightSaber, RandomRoller.Roller, new AttackWithForceAndWeapon(), new DefendWithWeapon())
         };
     }
 }

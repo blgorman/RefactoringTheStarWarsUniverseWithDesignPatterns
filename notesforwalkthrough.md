@@ -45,3 +45,20 @@ Use composition to build new weapons in code on the fly
 
 ## Factory Pattern
 
+This code is a significant change.  The idea is to prevent composing a character that should or should not have the force incorrectly.  There is an added complexity in that some of the classes might have the force, some might not.
+
+Here we find out that we originally programmed this incorrectly.  All of the "classifications" really didn't need a type.  You could do "AnyDroid" or "AnyCharacter" very easily and then compose based on type.  
+
+SO we create three factories:
+- One for ForceEnabled
+- One for NoForceAbility
+- One for MightHaveForce
+
+Put the correct classifications under each as the only possible types that can be created.
+
+Then we don't ever "new up" the classification type directly.  Instead, we just delegate that to the factories based on choices we made.
+
+As such, we removed "Scoundrel" as that doesn't make sense any more.
+We also added all the classifications that should have been there from the start so we can compose objects correctly.
+
+Most objects can be made from one of the factories.  To support the legacy code we allowed keeping the type but still used the factory to generate the classification.  This might also be important if there are other things going on in the character creation class.
