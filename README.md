@@ -302,24 +302,209 @@ As you can see the possibilities are endless but some would be ridiculous in thi
 
 ## The Factory Pattern
 
-Not all instantiation should be public...This is why...
+The changes necessary to implement a factory pattern could be trivial.  However, in this solution putting a factory in place for classifications revealed a bit of a "cross polination" of ideas - where the character was a type but really the type was a classification.  
+
+There are really three types of characters, and different classifications may be required in one or more of these types.  Also, different types might be disallowed.  For this reason, the code should just spin up the classification type that is appropriate without the user having to do anything but configure it.  To make this happen, three factories are implemented:
+
+- NoForceAbilityFactory
+- ForceAbleFactory
+- MightHaveForceCharacterFactory
+
+Now all types can be leveraged by first setting the correct factory.  This should make it very difficult to incorrectly create a Jedi that doesn't have the force or a droid that does have the force.
+
+Additionally, the correct algorithm for the activities will be able to easily be implemented by the classification choice without concern for spinning up the classification.  The correct classification type should be chosen by the way the user chooses to create the original character. 
 
 ### Implementations
 
-Character rolling with characteristics based on the roll and choices to generate the right type of character.
+To make this happen, first create the abstract factory, then create three implementations of the factory
+
+```cs
+public abstract class CharacterClassificationFactory
+{
+    public CharacterClassification SetClass(ClassificationType c)
+    {
+        return CreateClass(c);
+    }
+
+    protected abstract CharacterClassification CreateClass(ClassificationType c);
+}
+``` 
+
+Put all the types that are possible to be created with a "No Force" classification
+
+```cs
+public class NoForceAbilityFactory : CharacterClassificationFactory
+{
+    protected override CharacterClassification CreateClass(ClassificationType c)
+    {
+        switch (c)
+        {
+            case ClassificationType.BountyHunter:
+                return new BountyHunter();
+            case ClassificationType.Droid:
+                return new Droid();
+            case ClassificationType.Raider:
+                return new Raider();
+            case ClassificationType.Smuggler:
+                return new Smuggler();
+            case ClassificationType.Trooper:
+                return new Trooper();
+            case ClassificationType.Generic:
+                return new GenericCharacter();
+            default:
+                return new GenericCharacter();
+        }
+    }
+}
+```  
+
+Put all the types that are possible to be created with a "Must Have Force" classification
+
+```cs
+public class ForceAbleFactory : CharacterClassificationFactory
+{
+    protected override CharacterClassification CreateClass(ClassificationType c)
+    {
+        switch (c)
+        {
+            case ClassificationType.Jedi:
+                return new Jedi();
+            case ClassificationType.Sith:
+                return new Sith();
+            default:
+                return new Jedi();
+        }
+    }
+}
+```  
+Same for MightHaveForce:
+
+```cs
+public class MightHaveForceCharacterFactory : CharacterClassificationFactory
+{
+    //might have the force, might not
+    protected override CharacterClassification CreateClass(ClassificationType c)
+    {
+        switch (c)
+        {
+            case ClassificationType.BountyHunter:
+                return new BountyHunter();
+            case ClassificationType.Raider:
+                return new Raider();
+            case ClassificationType.Smuggler:
+                return new Smuggler();
+            case ClassificationType.Trooper:
+                return new Trooper();
+            case ClassificationType.Generic:
+                return new GenericCharacter();
+            case ClassificationType.MobBoss:
+                return new MobBossClassification();
+            case ClassificationType.Politician:
+                return new PoliticianClassification();
+            case ClassificationType.Scavenger:
+                return new ScavengerClassification();
+            default:
+                return new GenericCharacter();
+        }
+    }
+}
+```  
+
+Note that there is some overlap here, but if you choose force enabled, you also most select Jedi or Sith.  If you choose NoForce, you could do any of the types other than Jedi/Sith but this is also the only place you can create a Droid.  The Might have includes types that may or may not have the force.  
+
+To clean this up, all the classifications needed to be added to the enum and then in the Characters hierarchy all ability to manually configure force ability was removed.  Either it is automatic, not allowed, or is possible but not determined until runtime.
+
+To make this complete, the SetClass method was delegated to the implementations to utilize the factory that was appropriate, and three new Characters are added - AnyCharacter, ForceAbledCharacter, and NoForceAbilityCharacter.  Most characters can be generated from those types, but the old types were left (except Scoundrel, which was removed).  
+
+The SetClass method in each implementation uses the correct factory to get the implementation of the Classification to compose the character.  
+
+```cs
+//AnyCharacter - might have force
+public override void SetClass(ClassificationType c)
+{
+    var characterFactory = new MightHaveForceCharacterFactory();
+    Classification = characterFactory.SetClass(c);
+}
+//ForceCharacter - jedi/sith only
+public override void SetClass(ClassificationType c)
+{
+    var characterFactory = new ForceAbleFactory();
+    Classification = characterFactory.SetClass(c);
+}
+//nonForce character - any but jedi/sith
+public override void SetClass(ClassificationType c)
+{
+    var characterFactory = new NoForceAbilityFactory();
+    Classification = characterFactory.SetClass(c);
+}
+```  
+
+The constructors inject the correct force settings, so the user doesn't have to think about them in any of the cases (note the true, false that are sent to the base for the choices of canHaveForce and mustHaveForce):
+
+```cs
+//any character but droid - might have force
+public AnyCharacter(string name, int age, double height, double weight, int classificationChoice, int speciesChoice, int weaponChoice, Random random)
+    : base(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, false, random)
+{
+}
+//Force Character (jedi/sith only) - must have force
+public ForceAbledCharacter(string name, int age, double height, double weight, int classificationChoice, int speciesChoice, int weaponChoice, Random random)
+    : base(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, true, true, random)
+{
+}
+//Non Force Character (any but jedi/sith)
+public NoForceAbilityCharacter(string name, int age, double height, double weight, int classificationChoice, int speciesChoice, int weaponChoice, Random random)
+    : base(name, age, height, weight, classificationChoice, speciesChoice, weaponChoice, false, false, random)
+{
+}
+```  
+
+With this in place, the default characters can be generated with the new factory types:  
+
+```cs
+private static List<ICharacter> MainCharacters() => new List<ICharacter>
+{
+    new NoForceAbilityCharacter("Han Solo", 42, 6.04, 225, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Human, (int)Wea...
+    new NoForceAbilityCharacter("Chewbacca", 152, 8.31, 423, (int)ClassificationType.Smuggler, (int)KnownSpeciesType.Wookie, (int)...
+    new ForceAbledCharacter("Luke Skywalker", 27, 5.72, 175, (int)ClassificationType.Jedi, (int)KnownSpeciesType.Human, (int)Weapo...
+    new ForceAbledCharacter("Emporer Palpatine", 72, 5.61, 164, (int)ClassificationType.Sith, (int)KnownSpeciesType.Human, (int)We...
+    new ForceAbledCharacter("Princess Leia", 29, 5.4, 120, (int)ClassificationType.Generic, (int)KnownSpeciesType.Human, (int)Weap...
+    new AnyDroid("C-3PO", 92, 5.9, 320, (int)KnownSpeciesType.Droid, (int)WeaponChoices.Staff, RandomRoller.Roller, new AttackNoWe...
+    new AnyCharacter("Finn", 27, 6.0, 190, (int)ClassificationType.Trooper, (int)KnownSpeciesType.Human, (int)WeaponChoices.Blaste...
+    new ForceAbledCharacter("Darth Maul", 27, 6.4, 252, (int)ClassificationType.Sith, (int)KnownSpeciesType.Human, (int)WeaponChoi...
+};
+```  
 
 ## The Template Pattern
 
-Protect your algorithms - give additional options when appropriate.
+For the template pattern, the perform action needs to be equal for all of the players in the game.  It would be unfair if someone was able to run an extra action or attack every time.  Therefore, you want to protect the algorithm.  
+
+There may be times when you want to add an additional, optional task.  A good example of this is two-factor authentication.  In some instances, you may be ok with just a single factor, but in others you will want to require it.
+
+In this scenario, imagine that the actions must be taken one at a time, but there might be a second action that allows a user to act a second appropriately if the first action is something simple like Patrolling.  They might also be able to add a challenge if they run into another character, such as asking for identification (as part of the patrolling action).
+
+To keep this simple, all actions are just strings and the code will respond when the string is "Patrolling".  In a real implementation you would want to have enums and a more robust solution.
 
 ### Implementations
 
-The roll algorithm with hooks to change a few things when necessary.
+All of the classification types have the ability to perform an action.  We don't want any of them to add additional actions like "Attack" and then "Attack Again".  However, we want to allow for a challenge action if the patrolling character encounters another character.
+
+To do this, we need to first lock down the algorithm in the base class so it can't be overridden.  Once that is done, we need to add an optional hook to the algorithm for allowing the challenge action.
 
 
 
-Singleton => RollerClass
-Strategy => Attack and defense behaviors
-Factory => Character Classification factory
-Decorator => Weapons
-Template => Character Classifications
+
+
+## Summary
+
+In this video/code, we refactored the star wars universe to implement the following patterns using the listed approach:
+
+- Singleton => RollerClass
+- Strategy => Attack and defense behaviors
+- Decorator => Weapons modifications without subclass explosion
+- Factory => Character Classification factories for force abilities
+- Template => Character Classifications action algorithms
+
+I hope you found this useful and informative.
+
+Let me know how it could be improved!
