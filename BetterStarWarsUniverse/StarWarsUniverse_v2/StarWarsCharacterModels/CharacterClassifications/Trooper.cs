@@ -16,6 +16,18 @@
             return $"Starting: {_nextAction}";
         }
 
+        //cannot override a sealed method, algorithm is protected.
+        //public override string PerformAction()
+        //{
+        //    //attempting to override the algorithm..
+        //    return "We did it!";
+        //}
+
+        public override string PerformChallengeAction()
+        {
+            return "Asking for identification...";
+        }
+
         public override string PerformNextAction()
         {
             Actions.RemoveAt(0);

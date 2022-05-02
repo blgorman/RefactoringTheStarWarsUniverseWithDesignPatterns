@@ -20,6 +20,11 @@
             return $"Starting: {_nextAction}";
         }
 
+        public override string PerformChallengeAction()
+        {
+            return $"Talking to character: 'Tell me why I shouldn't haul you in right now!'";
+        }
+
         public override string PerformNextAction()
         {
             Actions.RemoveAt(0);

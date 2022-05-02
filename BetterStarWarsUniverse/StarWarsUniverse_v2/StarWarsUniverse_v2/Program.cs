@@ -108,6 +108,8 @@ namespace StarWarsUniverse_v2
             var luke = AllCharacters.FirstOrDefault(x => x.Name == "Luke Skywalker");
             if (luke is not null)
             {
+                //template, trooper, jedi encounter characters
+                luke.Classification.ChallengeRequested = true;
                 luke.AttackBehavior = new AttackWithForceAndWeapon();
             }
 
@@ -122,6 +124,7 @@ namespace StarWarsUniverse_v2
             var trooper = AllCharacters.FirstOrDefault(x => x.Name == "Finn");
             if (trooper != null)
             {
+                trooper.Classification.ChallengeRequested = true;
                 trooper.Weapon = new Cannon(new Blaster());
             }
 
@@ -131,6 +134,9 @@ namespace StarWarsUniverse_v2
             {
                 maul.Weapon = new Lightsaber(new Lightsaber());
             }
+
+            
+
 
             foreach (var c in AllCharacters)
             {

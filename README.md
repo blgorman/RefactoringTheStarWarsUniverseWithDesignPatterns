@@ -491,10 +491,6 @@ All of the classification types have the ability to perform an action.  We don't
 
 To do this, we need to first lock down the algorithm in the base class so it can't be overridden.  Once that is done, we need to add an optional hook to the algorithm for allowing the challenge action.
 
-
-
-
-
 ## Summary
 
 In this video/code, we refactored the star wars universe to implement the following patterns using the listed approach:
