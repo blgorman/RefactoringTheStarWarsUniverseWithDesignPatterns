@@ -115,6 +115,11 @@ Goals:
 - Eliminate multiple new Random() class instantiations
 - Be able to use the Roller throughout the solution to generate appropriate random numbers
 
+### Definition
+
+A design pattern that restricts object creation for a class to only one instance. [ref. Singleton Pattern](https://en.wikipedia.org/wiki/Singleton_pattern)
+
+
 ### Old code
 
 The old code looks something like this when used:
@@ -215,6 +220,10 @@ When implementing the strategy pattern, assuming you have found a valid candidat
 - Implement concrete types for different implementations of the behavior
 - Use composition to consume code with the appropriate behavior injected at runtime  
 
+### Definition  
+
+A design pattern that enables the selection of an algorithm at runtime by taking a family of algorithms and encapsulating the implementations so as to create interchangeable behaviors.  [ref. Strategy Pattern](https://en.wikipedia.org/wiki/Strategy_pattern)  
+
 ### Implementation
 
 To examine this pattern in the Star Wars Universe, consider code that has the following problems:  
@@ -253,6 +262,10 @@ Review the Behaviors folder, and review how the AnyCharacter is composed as well
 ## The Decorator Pattern
 
 Eliminate the problems with making a new subclass for each of your inheritance needs.  
+
+### Definition
+
+Allow behavior to be enhanced for each object without affecting other objects of the same class by taking in an object of its own type and enhancing the base operations with new functionality.  Avoids the problem of subclass explosion. [ref. Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern)
 
 ### Implementations
 
@@ -313,6 +326,10 @@ There are really three types of characters, and different classifications may be
 Now all types can be leveraged by first setting the correct factory.  This should make it very difficult to incorrectly create a Jedi that doesn't have the force or a droid that does have the force.
 
 Additionally, the correct algorithm for the activities will be able to easily be implemented by the classification choice without concern for spinning up the classification.  The correct classification type should be chosen by the way the user chooses to create the original character. 
+
+### Definition  
+
+Use a factory method to create objects based on the choices of the system without having to know everything about the exact class that will be created.  Delegates the construction of classes to another object and allows flexibility and abstraction of detail from the caller.  [ref. Factory Pattern](https://en.wikipedia.org/wiki/Factory_method_pattern)  
 
 ### Implementations
 
@@ -485,6 +502,10 @@ In this scenario, imagine that the actions must be taken one at a time, but ther
 
 To keep this simple, all actions are just strings and the code will respond when the string is "Patrolling".  In a real implementation you would want to have enums and a more robust solution.
 
+### Definition  
+
+
+
 ### Implementations
 
 All of the classification types have the ability to perform an action.  We don't want any of them to add additional actions like "Attack" and then "Attack Again".  However, we want to allow for a challenge action if the patrolling character encounters another character.
@@ -504,3 +525,11 @@ In this video/code, we refactored the star wars universe to implement the follow
 I hope you found this useful and informative.
 
 Let me know how it could be improved!
+
+## Additional References
+
+More information can be found in these links:
+
+- [Head First Design Patterns](https://www.amazon.com/Head-First-Design-Patterns-Object-Oriented/dp/149207800X/ref=asc_df_149207800X/?tag=hyprod-20&linkCode=df0&hvadid=459709175715&hvpos=&hvnetw=g&hvrand=6676623056321867402&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9018135&hvtargid=pla-918195320150&psc=1)  
+- [DoFactory](https://www.dofactory.com/net/design-patterns)  
+- [Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns)  
